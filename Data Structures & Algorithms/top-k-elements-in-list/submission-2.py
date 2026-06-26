@@ -1,26 +1,27 @@
+import heapq
+
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        arr = [[] for i in range(len(nums)+1)]
-        count = {}
+
+        d = {}
 
         for i in range(len(nums)):
-            if nums[i] in count:
-                count[nums[i]]  += 1
+            if nums[i] in d:
+                d[nums[i]] +=1
             else:
-                count[nums[i]] = 1
+                d[nums[i]] = 1
 
-        for num in count: 
-            arr[count[num]].append(num)
+        pq = []
+        for num in d: 
+            heapq.heappush(pq, (-d[num], num ))
 
+        print(pq)
         toReturn = []
-        count = 0
-        for i in range(len(arr)-1, -1, -1):
-            j = 0
-            if arr[i] != []:
-                while count < k and j < len(arr[i]):
-                    toReturn.append(arr[i][j])
-                    count+=1
-                    j+=1
-                
+        for top in range(k): 
+           toReturn.append(heapq.heappop(pq)[1])
+        
         return toReturn
-            
+      
+       
+
+        
