@@ -6,45 +6,34 @@
 
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        
-        dummy =  ListNode()
-        curr1 = list1
-        curr2 = list2
-        temp = dummy
- 
+
+        node = ListNode(0, None)
+        toReturn = node 
+
+        curr1,curr2 = list1, list2 
         while curr1 and curr2:
-            if curr1.val > curr2.val:
-                temp.next = curr2 
+            if curr1.val <= curr2.val:
+                node.next = curr1 
+                curr1 = curr1.next  
+                node = node.next 
+            else: 
+                node.next = curr2
                 curr2 = curr2.next 
-                temp = temp.next
-
-            elif curr2.val > curr1.val:
-                temp.next = curr1
-                curr1 = curr1.next
-                temp = temp.next
-            else:
-                temp.next = curr1
-                curr1 = curr1.next
-                temp = temp.next 
-                
-
+                node = node.next 
+        
         if curr1: 
-            temp.next = curr1
-
+            node.next = curr1
         if curr2: 
-            temp.next = curr2 
+            node.next = curr2
 
-        return dummy.next
-
+        return toReturn.next 
+            
             
 
 
 
+        
 
             
 
-
-
-
-
-            
+        
